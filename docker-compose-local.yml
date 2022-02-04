@@ -1,0 +1,8 @@
+version: "3.7"
+
+services:
+  common-ui:
+    environment:
+      - NODE_ENV=local
+      - REACT_APP_ENV=local
+      - REACT_APP_REDIRECT_URI=http://localhost:3000

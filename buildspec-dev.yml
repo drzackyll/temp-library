@@ -1,0 +1,20 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 10
+  post_build:
+    commands:
+      - export REACT_APP_ENV=development
+      - export REACT_APP_CONNECTION=optimaldynamics
+      - export REACT_APP_CLIENT_ID=BBzKAGVoQf0B0sJsum6zbdzaLu8RcTNu
+      - export REACT_APP_DOMAIN=dev-core-ai.us.auth0.com
+      - export REACT_APP_AUDIENCE=https://dev.api.core-ai.io/
+      - export REACT_APP_SCOPE='openid profile https://core-ai.io/token_type_claim https://core-ai.io/jti https://core-ai.io/connection https://core-ai.io/roles'
+      - npm install --silent
+      - npm run-script build-storybook -s public
+      - aws s3 sync ./storybook-static s3://dev.ui-components.core-ai.io --acl public-read --exclude '.git/*' --exclude '.DS_Store' --exclude '.git*' --exclude 'README.md' --cache-control no-cache --delete 
+artifacts:
+  files:
+    - '**/*'

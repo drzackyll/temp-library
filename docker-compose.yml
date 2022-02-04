@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  common-ui:
+    container_name: common-ui
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
+    ports:
+      - '3000:3000'
+    stdin_open: true
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_ENV=development
+      - REACT_APP_REDIRECT_URI=http://localhost:3000
